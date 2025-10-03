@@ -44,8 +44,10 @@ namespace Halley {
 
 		virtual int readAt(gsl::span<std::byte> dst, size_t pos)
 		{
+			size_t oldPos = tell();
 			seek(pos, SEEK_SET);
 			return read(dst);
+			seek(oldPos, SEEK_SET);
 		}
 
 		Bytes readAll(std::optional<size_t> startPos = {});
